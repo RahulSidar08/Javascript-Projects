@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background-color: rgb(11, 11, 38);
+        }
+
+        button {
+            font-size: 2rem;
+        }
+    </style>
+</head>
+
+<body>
+
+    <button>Get Your Location </button>
+    <script>
+        const btn = document.querySelector("button");
+        const getYourLocation = function () {
+
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function (position) {
+                    // console.log(position)
+                    const latitude = position.coords.latitude;
+                    const longitude = position.coords.longitude;
+                    // console.log(latitude, longitude)
+                    fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`)
+                        .then(res => {
+                            return res.json();
+                        }).then(data => {
+                            // console.log(data)
+
+                            alert(data.display_name)
+
+                        })
+                })
+            }
+            else {
+                console.log("Could not get Location")
+            }
+        }
+
+        btn.addEventListener('click', getYourLocation)
+    </script>
+</body>
+
+</html>
