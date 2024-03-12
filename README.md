@@ -1,1 +1,1 @@
-# Javascript-Projects
+Current Location detection by javascript.
